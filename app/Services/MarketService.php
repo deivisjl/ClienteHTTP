@@ -20,4 +20,11 @@ class MarketService
 		$baseUri = config('services.market.base_uri');
 	}
 
+	/**
+	 * Obtiene la lista de productos desde la API
+	 */
+	public function getProducts()
+	{
+		return $this->makeRequest('GET','products');
+	}
 }

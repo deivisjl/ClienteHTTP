@@ -13,9 +13,11 @@ trait ConsumesExternalServices
 	public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [])
 	{
 		$client = new Client([
-			'base_uri' => $this->baseUri,
+			// 'base_uri' => $this->baseUri,
+			// 'base_uri' => 'https://laravelapi.juandmegon.com',
+			'base_uri' => 'http://www.apirest.com',
 		]);
-
+		
 		if(method_exists($this, 'resolveAuthorization'))
 		{
 			$this->resolveAuthorization($queryParams, $formParams, $headers);
