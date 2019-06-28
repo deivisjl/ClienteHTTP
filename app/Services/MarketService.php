@@ -9,7 +9,17 @@ class MarketService
 	use ConsumesExternalServices;
 
 	/**
-	 * Resolve the elements
+	 *  Url base para enviar peticiones
+	 */
+	protected $baseUri;
+
+	public function __construct()
+	{
+		$baseUri = config('services.market.base_uri');
+	}
+
+	/**
+	 * Resolve the elements of request
 	 */
 	public function resolveAuthorization(&$queryParams, &$formParams, &$headers)
 	{
@@ -27,6 +37,6 @@ class MarketService
 	 */
 	public function checkIfErrorResponse($response)
 	{
-		
+
 	}
 }
