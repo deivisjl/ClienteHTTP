@@ -36,7 +36,7 @@ class MarketAuthenticationService{
     public function getClientCredentialsToken()
     {
         $formParams = [
-            'grantType'=>'client_credentials',
+            'grant_type'=>'client_credentials',
             'client_id'=>$this->clientId,
             'client_secret'=>$this->clientSecret,
         ];
