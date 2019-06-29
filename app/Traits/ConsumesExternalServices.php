@@ -14,8 +14,8 @@ trait ConsumesExternalServices
 	{
 		$client = new Client([
 			//'base_uri' => $this->baseUri,
-			'base_uri' => 'https://laravelapi.juandmegon.com',
-			//'base_uri' => 'http://www.apirest.com',
+			//'base_uri' => 'https://laravelapi.juandmegon.com',
+			'base_uri' => 'http://www.apirest.com',
 		]);
 		
 		if(method_exists($this, 'resolveAuthorization'))

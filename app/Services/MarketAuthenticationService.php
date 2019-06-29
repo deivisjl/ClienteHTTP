@@ -65,6 +65,23 @@ class MarketAuthenticationService{
         return "{$this->baseUri}/oauth/authorize/?{$query}";
     }
 
+    public function getCodeToken($code)
+    {
+        $formParams = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+            'redirect_ur' => route('authorization'),
+            'code' => $code,
+        ];
+
+        $tokenData = $this->makeRequest('POST','oauth/token',[],$formParams);
+
+        $this->storeValidToken($tokenData,'authorization_code');
+
+        return $tokenData->access_token;
+    }
+
     public function storeValidToken($tokenData, $grantType)
     {
         $tokenData->token_expires_at = now()->addSeconds($tokenData->expires_in - 5);
