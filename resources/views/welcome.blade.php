@@ -28,13 +28,15 @@
             <div class="row">
                 @foreach($products as $product)
                     <div class="col-4">
-                        <div class="card">
-                            <img src="{{ $product->imagen }}" alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->titulo }}</h5>
-                                <p class="card-text">{{ $product->detalles }}</p>
+                        <a href="{{ route('products.show',['title'=>$product->titulo, 'id'=>$product->identificador]) }}">
+                            <div class="card">
+                                <img src="{{ $product->imagen }}" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->titulo }}</h5>
+                                    <p class="card-text">{{ $product->detalles }}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
