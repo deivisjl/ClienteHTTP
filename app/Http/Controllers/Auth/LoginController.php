@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use App\Services\MarketAuthenticationService;
@@ -69,10 +70,26 @@ class LoginController extends Controller
             $tokenData = $this->marketAuthenticationService->getCodeToken($request->code);
 
             $userData = $this->marketService->getUserInformation();
-            
+
+            $user = $this->registerOrUpdateUser($userData, $tokenData);
+
             return;
         }
 
         return redirect()->route('login')->withErrors('You canceled the authorization process');
+    }
+
+    public function registerOrUpdateUser($userData, $tokenData)
+    {   
+        return User::updateOrCreate(
+        [
+            'service_id' => $userData->service_id,
+        ],
+        [
+            'granty_type'=> $tokenData->grant_type,
+            'access_token' => $tokenData->access_token,
+            'refresh_token' => $tokenData->refresh_token,
+            'token_expires_at' => $tokenData->token_expires_at,
+        ]);
     }
 }
