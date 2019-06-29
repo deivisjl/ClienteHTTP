@@ -46,6 +46,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
 
         $this->marketAuthenticationService = $marketAuthenticationService;
+
+        parent::__construct();
     }
 
     /**
@@ -65,6 +67,9 @@ class LoginController extends Controller
         if($request->has('code'))
         {
             $tokenData = $this->marketAuthenticationService->getCodeToken($request->code);
+
+            $userData = $this->marketService->getUserInformation();
+            
             return;
         }
 

@@ -53,4 +53,9 @@ class MyMarketService
 	{	
 		return $this->makeRequest('GET',"categories/{$id}/products");
 	}
+
+	public function getUserInformation()
+	{	
+		return $this->makeRequest('GET',"user/me");
+	}
 }
