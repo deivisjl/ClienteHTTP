@@ -65,7 +65,7 @@ class MarketAuthenticationService{
         return "{$this->baseUri}/oauth/authorize/?{$query}";
     }
 
-    public function storeValidToken($tokenData,$grantType)
+    public function storeValidToken($tokenData, $grantType)
     {
         $tokenData->token_expires_at = now()->addSeconds($tokenData->expires_in - 5);
 

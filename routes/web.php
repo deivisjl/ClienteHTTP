@@ -17,6 +17,7 @@ Route::get('/products/{title}-{id}', 'ProductController@showProduct')->name('pro
 
 Route::get('/categories/{title}-{id}/products', 'CategoryProductController@showProducts')->name('categories.products.show');
 
+Route::get('authorization', 'Auth\LoginController@authorization')->name('authorization');
 
 Auth::routes(['register' => false, 'reset' => false]);
 
