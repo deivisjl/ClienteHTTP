@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MyMarketService;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-
-use App\Services\MarketService;
 
 class Controller extends BaseController
 {
@@ -19,8 +18,9 @@ class Controller extends BaseController
 	 */
 	protected $marketService;
 
-    public function __construct(MarketService $marketService)
+    public function __construct()
     {
-    	$this->marketService = $marketService;
+
+    	$this->marketService = MyMarketService::getInstance();
     }
 }

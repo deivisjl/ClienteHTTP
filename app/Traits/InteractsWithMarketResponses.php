@@ -10,7 +10,7 @@ trait InteractsWithMarketResponses
 	 *  @return stdClass
 	 */
 	public function decodeResponse($response)
-	{
+	{		
 		$decodedResponse = json_decode($response);
 
 		return $decodedResponse->data ?? $decodedResponse;
@@ -24,5 +24,7 @@ trait InteractsWithMarketResponses
 		{
 			throw new \Exception("Something failed: {$response->error}");
 		}
+
+		return $response;
 	}
 }

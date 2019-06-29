@@ -13,7 +13,7 @@ trait ConsumesExternalServices
 	public function makeRequest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [])
 	{
 		$client = new Client([
-			// 'base_uri' => $this->baseUri,
+			//'base_uri' => $this->baseUri,
 			// 'base_uri' => 'https://laravelapi.juandmegon.com',
 			'base_uri' => 'http://www.apirest.com',
 		]);
@@ -38,9 +38,8 @@ trait ConsumesExternalServices
 
 		if(method_exists($this, 'checkIfErrorResponse'))
 		{
-			$response = $this->decodeResponse($response);
+			$response = $this->checkIfErrorResponse($response);
 		}
-
 		return $response;
 	}
 }
