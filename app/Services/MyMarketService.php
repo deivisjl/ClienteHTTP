@@ -56,6 +56,6 @@ class MyMarketService
 
 	public function getUserInformation()
 	{	
-		return $this->makeRequest('GET',"user/me");
+		return $this->makeRequest('GET',"users/me");
 	}
 }

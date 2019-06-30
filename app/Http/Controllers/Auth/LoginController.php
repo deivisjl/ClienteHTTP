@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use GuzzleHttp\Exception\ClientException;
 use App\Services\MarketAuthenticationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -121,14 +123,21 @@ class LoginController extends Controller
 
             return redirect()->intended('home');
         }
-        catch(\Exception $ex)
+        catch(ClientException $ex)
         {
-             // If the login attempt was unsuccessful we will increment the number of attempts
-            // to login and redirect the user back to the login form. Of course, when this
-            // user surpasses their maximum number of attempts they will get locked out.
-            $this->incrementLoginAttempts($request);
+            $message = $ex->getResponse()->getBody();
 
-            return $this->sendFailedLoginResponse($request);
+            if(Str::contains($message,'invalid_credentials'))
+            {
+                // If the login attempt was unsuccessful we will increment the number of attempts
+                // to login and redirect the user back to the login form. Of course, when this
+                // user surpasses their maximum number of attempts they will get locked out.
+                $this->incrementLoginAttempts($request);
+
+                return $this->sendFailedLoginResponse($request); 
+            }
+
+            throw $ex;
         }
     }
 
@@ -139,7 +148,7 @@ class LoginController extends Controller
             'service_id' => $userData->identificador,
         ],
         [
-            'granty_type'=> $tokenData->grant_type,
+            'grant_type'=> $tokenData->grant_type,
             'access_token' => $tokenData->access_token,
             'refresh_token' => $tokenData->refresh_token,
             'token_expires_at' => $tokenData->token_expires_at,
